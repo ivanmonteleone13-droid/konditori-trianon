@@ -96,6 +96,7 @@ export const business = {
       note: "Se bilder på officiell webbplats.",
     },
   ],
+  logoImage: "/images/logo.jpg" as string | null,
   heroImage: "/images/hero.jpg",
   aboutImage: "/images/gallery-1.jpg",
   gallery: [
