@@ -1,11 +1,11 @@
 import { business } from "@/lib/business";
 
 export default function JsonLd() {
-  const sameAs = [business.facebookUrl, business.instagramUrl].filter(Boolean);
+  const sameAs = [business.websiteUrl, business.facebookUrl, business.instagramUrl].filter(Boolean);
 
   const schema = {
     "@context": "https://schema.org",
-    "@type": "ShoeStore",
+    "@type": "Bakery",
     name: business.name,
     description: business.description,
     telephone: business.phone,
@@ -28,23 +28,18 @@ export default function JsonLd() {
       bestRating: 5,
       worstRating: 1,
     },
-    url: "http://localhost:3002",
-    priceRange: "$$",
-    openingHoursSpecification: business.hours.regular
-      .filter((h) => h.hours !== "Stängt")
-      .map((h) => ({
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: h.day,
-        opens: h.hours.split(" – ")[0],
-        closes: h.hours.split(" – ")[1],
-      })),
+    url: "https://konditori-trianon-o24f1qx9p-jet7.vercel.app",
+    priceRange: "$",
+    openingHoursSpecification: business.hours.regular.map((h) => ({
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: h.day,
+      opens: h.hours.split(" – ")[0],
+      closes: h.hours.split(" – ")[1],
+    })),
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };
 
   return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
   );
 }
